@@ -1,0 +1,10 @@
+.idea
+
+/back/.idea
+/back/target
+/back/src/main/resources/img/users/*
+/back/src/main/resources/img/publications/*
+
+/front/.idea
+/front/.angular
+/front/node_modules
