@@ -32,6 +32,8 @@ export class PublicationAddComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.authService.getUserProfile();
+
 		if (this.authService.getRole() !== 'USER') this.router.navigate(['/login']);
 	}
 

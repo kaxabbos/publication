@@ -52,6 +52,8 @@ export class PublicationComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.authService.getUserProfile();
+
 		this.publicationService.publicationSubject.subscribe(value => {
 			this.publications = value.publications;
 		})

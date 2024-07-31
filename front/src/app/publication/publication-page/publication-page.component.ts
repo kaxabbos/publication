@@ -43,6 +43,8 @@ export class PublicationPageComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.authService.getUserProfile();
+
 		if (this.authService.getRole() === 'NOT') this.router.navigate(['/login']);
 
 		this.activatedRoute.queryParams.subscribe(params => {
