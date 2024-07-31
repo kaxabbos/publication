@@ -1,0 +1,13 @@
+<div class="row mb-3 align-items-center" data-aos="fade-up">
+	<div class="col">
+		<input class="form-control" readonly type="text" value="{{user.username}}">
+	</div>
+	<div class="col-auto">
+		<select (change)="setRole()" [(ngModel)]="user.role" class="form-control" required>
+			<option *ngFor="let r of roles | keyvalue" [label]="r.value" [value]="r.key"></option>
+		</select>
+	</div>
+	<div class="col-auto">
+		<button (click)="deleteUser()" class="btn btn-danger" type="button">Удалить</button>
+	</div>
+</div>

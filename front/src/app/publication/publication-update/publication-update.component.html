@@ -1,0 +1,33 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">Обновить публикацию</h1>
+
+	<div *ngIf="message" class="alert alert-warning text-center fw-bold" data-aos="zoom-in" role="alert">
+		{{ message }}
+	</div>
+
+	<div class="row mb-5 d-flex justify-content-center" data-aos="zoom-in">
+		<div class="col-4">
+			<a (click)="publicationPage()" class="btn btn-primary w-100">Назад</a>
+		</div>
+	</div>
+
+	<form (ngSubmit)="updatePublication()" [formGroup]="publication" class="row" data-aos="fade-up">
+		<div class="col mb-2">
+			<p class="fs-4 m-0">Наименование</p>
+			<input class="form-control" formControlName="name" type="text">
+		</div>
+		<div class="col mb-2">
+			<p class="fs-4 m-0">Цена</p>
+			<input class="form-control" formControlName="price" min="0.01" step="0.01" type="number">
+		</div>
+		<div class="col-12 mb-2">
+			<p class="fs-4 m-0">Описание</p>
+			<textarea class="form-control" formControlName="description"></textarea>
+		</div>
+		<div *ngIf="!publication.invalid" class="col-12 mb-2" data-aos="zoom-in">
+			<button class="btn btn-success w-100" type="submit">Обновить</button>
+		</div>
+	</form>
+
+</div>

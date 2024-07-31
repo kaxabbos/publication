@@ -1,0 +1,44 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">Публикации</h1>
+
+	<div *ngIf="getRole() === 'USER'" class="row mb-5 d-flex justify-content-center" data-aos="zoom-in">
+		<div class="col-4">
+			<a (click)="router.navigate(['/publicationAdd'])" class="btn btn-primary w-100">Добавить</a>
+		</div>
+	</div>
+
+	<div class="mb-5 row" data-aos="zoom-in">
+		<div class="col">
+			<input [(ngModel)]="name" class="form-control" name="name" placeholder="Наименование" type="text">
+		</div>
+		<div class="col">
+			<select [(ngModel)]="filter" class="form-select" name="filter">
+				<option value="0">Сперва новые</option>
+				<option value="1">Сперва старые</option>
+				<option value="2">По возрастанию цены</option>
+				<option value="3">По убыванию цены</option>
+				<option value="4">От А до Я</option>
+				<option value="5">От Я до А</option>
+			</select>
+		</div>
+		<div *ngIf="getRole() === 'MANAGER' || getRole() === 'USER'" class="col">
+			<select [(ngModel)]="filter2" class="form-select" name="filter2">
+				<option value="0">Все</option>
+				<option *ngIf="getRole() === 'USER'" value="1">Мои</option>
+				<option *ngIf="getRole() === 'MANAGER'" value="2">В ожидании</option>
+				<option *ngIf="getRole() === 'MANAGER'" value="3">Неподтвержденные</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="row justify-content-center">
+		@for (i of getPublications(); track i.id) {
+			<div class="col-4">
+				<app-publication-card [publication]="i"></app-publication-card>
+			</div>
+		}
+	</div>
+
+</div>
+

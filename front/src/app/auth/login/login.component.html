@@ -1,0 +1,22 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">Вход</h1>
+
+	<div class="d-flex justify-content-center" data-aos="zoom-in">
+
+		<form (ngSubmit)="loginFormSubmit()" [formGroup]="loginForm" class="w-50">
+
+			<div *ngIf="message" class="alert alert-warning text-center fw-bold" data-aos="zoom-in" role="alert">
+				{{ message }}
+			</div>
+
+			<input class="form-control mb-2" formControlName="username" placeholder="Логин" type="text">
+			<input class="form-control mb-2" formControlName="password" placeholder="Пароль" type="password">
+			<button *ngIf="!loginForm.invalid" class="btn btn-primary w-100" data-aos="zoom-in" type="submit">Вход
+			</button>
+
+		</form>
+
+	</div>
+
+</div>

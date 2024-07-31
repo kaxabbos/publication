@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg bg-primary mb-5 shadow" data-bs-theme="dark">
+	<div class="container">
+		<a (click)="router.navigate(['/'])" class="navbar-brand" role="button">Front</a>
+		<button aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation"
+				class="navbar-toggler" data-bs-target="#navbarColor01" data-bs-toggle="collapse" type="button">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav mx-auto">
+				<li class="nav-item" data-aos="zoom-in">
+					<a (click)="router.navigate(['/'])" class="nav-link" role="button">Главная</a>
+				</li>
+				<li class="nav-item" data-aos="zoom-in">
+					<a (click)="router.navigate(['/publications'])" class="nav-link" role="button">Публикации</a>
+				</li>
+				<li *ngIf="getRole() === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<a (click)="router.navigate(['/users'])" class="nav-link" role="button">Пользователи</a>
+				</li>
+				<li *ngIf="getRole() === 'ADMIN'" class="nav-item" data-aos="zoom-in">
+					<a (click)="router.navigate(['/stats'])" class="nav-link" role="button">Аналитика</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav">
+				<li *ngIf="getRole() === 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a (click)="router.navigate(['/login'])" class="nav-link" role="button">Вход</a>
+				</li>
+				<li *ngIf="getRole() === 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a (click)="router.navigate(['/reg'])" class="nav-link" role="button">Регистрация</a>
+				</li>
+				<li *ngIf="getRole() !== 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a (click)="router.navigate(['/profile'])" class="nav-link" role="button">Профиль</a>
+				</li>
+				<li *ngIf="getRole() !== 'NOT'" class="nav-item" data-aos="zoom-in">
+					<a (click)="authService.logout()" class="nav-link" role="button">Выход</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>

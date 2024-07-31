@@ -1,0 +1,15 @@
+<div class="container">
+
+	<h1 class="text-center mb-5" data-aos="zoom-in">Пользователи</h1>
+
+	<div class="row justify-content-center">
+		@for (i of getSortedUsers(); track i.id) {
+			<div *ngIf="i.id !== getUserId()">
+				<app-user-card [user]="i"></app-user-card>
+			</div>
+		} @empty {
+			<p class="fs-3 text-center">Пользователи еще не зарегистрировались</p>
+		}
+	</div>
+
+</div>
