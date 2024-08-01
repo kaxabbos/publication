@@ -32,15 +32,15 @@ export class PublicationAddComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.authService.getUserProfile();
-
-		if (this.authService.getRole() !== 'USER') this.router.navigate(['/login']);
+		this.authService.getUserProfile().add(() => {
+			if (this.authService.getRole() !== 'USER') this.router.navigate(['/login']);
+		});
 	}
 
 	addPublication() {
 		this.publicationService.addPublication(this.publication.value).subscribe({
-			next: ((res:any) => {
-				this.router.navigate(['/publication'],{queryParams:{id:res.data.id}});
+			next: ((res: any) => {
+				this.router.navigate(['/publication'], {queryParams: {id: res.data.id}});
 			}),
 			error: ((e) => {
 				console.log("error", e);

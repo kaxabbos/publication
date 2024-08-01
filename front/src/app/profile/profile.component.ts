@@ -39,8 +39,9 @@ export class ProfileComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.authService.getUserProfile();
-		if (this.getRole() === 'NOT') this.router.navigate(['/login']);
+		this.authService.getUserProfile().add(() => {
+			if (this.getRole() === 'NOT') this.router.navigate(['/login']);
+		});
 
 		this.authService.getProfile().subscribe({
 			next: ((res: any) => {

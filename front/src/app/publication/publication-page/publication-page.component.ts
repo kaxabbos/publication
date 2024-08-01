@@ -36,16 +36,17 @@ export class PublicationPageComponent implements OnInit {
 	getApplications(): any {
 		let applications = this.publication === null ? [] : this.publication.applications;
 		applications.sort((a: any, b: any) => (a.id < b.id ? 1 : -1));
-		if (this.getUserId() !== this.getOwnerId() && this.getRole() === 'USER'){
-			applications = applications.filter((i:any) => i.ownerId === this.getUserId());
+		if (this.getUserId() !== this.getOwnerId() && this.getRole() === 'USER') {
+			applications = applications.filter((i: any) => i.ownerId === this.getUserId());
 		}
 		return applications
 	}
 
 	ngOnInit(): void {
-		this.authService.getUserProfile();
+		this.authService.getUserProfile().add(() => {
+			if (this.authService.getRole() === 'NOT') this.router.navigate(['/login']);
+		});
 
-		if (this.authService.getRole() === 'NOT') this.router.navigate(['/login']);
 
 		this.activatedRoute.queryParams.subscribe(params => {
 			this.id = params['id'];
