@@ -62,7 +62,6 @@ export class AuthService {
 				localStorage.setItem("id", "0");
 				localStorage.setItem("role", "NOT");
 				localStorage.setItem("token", "");
-				localStorage.setItem("locationReload", "0");
 			})
 		});
 	}
@@ -83,10 +82,7 @@ export class AuthService {
 	}
 
 	logout() {
-		localStorage.setItem("id", "0");
-		localStorage.setItem("role", "NOT");
-		localStorage.setItem("token", "");
-		localStorage.setItem("locationReload", "0");
+		localStorage.clear();
 		this.router.navigate(['/login'])
 	}
 }
