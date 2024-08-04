@@ -5,9 +5,6 @@ import {HttpHeaders} from "@angular/common/http";
 	providedIn: 'root'
 })
 export class GlobalService {
-	constructor() {
-	}
-
 	getUserId() {
 		return Number(localStorage.getItem('id')) || 0;
 	}
@@ -43,5 +40,4 @@ export class GlobalService {
 			'Authorization': 'Bearer ' + this.getToken(),
 		});
 	}
-
 }
