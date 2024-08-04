@@ -3,7 +3,7 @@
 		<input class="form-control" readonly type="text" value="{{user.username}}">
 	</div>
 	<div class="col-auto">
-		<select (change)="setRole()" [(ngModel)]="user.nextRole" class="form-control" required>
+		<select (change)="setRole()" [(ngModel)]="user.role" class="form-control" required>
 			<option *ngFor="let r of roles | keyvalue" [label]="r.value" [value]="r.key"></option>
 		</select>
 	</div>

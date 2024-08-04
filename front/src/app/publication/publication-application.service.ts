@@ -1,35 +1,24 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class PublicationApplicationService {
 
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-
 	constructor(
 		private http: HttpClient,
+		private global: GlobalService,
 	) {
 	}
 
 	addApplication(id: any, description: any) {
 		return this.http.post(
-			this.backendUrl + `/publications/${id}/applications`,
+			this.global.getBackendUrl() + `/publications/${id}/applications`,
 			"",
 			{
-				headers: this.headersWithToken,
+				headers: this.global.getHeadersWithToken(),
 				params: new HttpParams().appendAll({
 					description: description,
 				}),
@@ -39,15 +28,15 @@ export class PublicationApplicationService {
 
 	doneApplication(id: any) {
 		return this.http.get(
-			this.backendUrl + `/applications/${id}/done`,
-			{headers: this.headersWithToken,}
+			this.global.getBackendUrl() + `/applications/${id}/done`,
+			{headers: this.global.getHeadersWithToken(),}
 		)
 	}
 
 	rejectApplication(id: any) {
 		return this.http.get(
-			this.backendUrl + `/applications/${id}/reject`,
-			{headers: this.headersWithToken,}
+			this.global.getBackendUrl() + `/applications/${id}/reject`,
+			{headers: this.global.getHeadersWithToken(),}
 		)
 	}
 

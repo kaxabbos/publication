@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
 import {Router} from "@angular/router";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -12,25 +13,18 @@ export class UserService {
 	userSubject = new BehaviorSubject<any>({
 		users: [],
 	})
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
 
 	constructor(
 		private http: HttpClient,
 		private router: Router,
+		private global: GlobalService,
 	) {
 	}
 
 	getUsers() {
 		return this.http.get(
-			this.backendUrl + '/users',
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + '/users',
+			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res: any) => {
 				this.userSubject.next({
@@ -54,11 +48,11 @@ export class UserService {
 
 	setRole(user: any) {
 		return this.http.patch(
-			this.backendUrl + `/users/${user.id}/role`,
+			this.global.getBackendUrl() + `/users/${user.id}/role`,
 			"",
 			{
-				headers: this.headersWithToken,
-				params: new HttpParams().appendAll({role: user.nextRole})
+				headers: this.global.getHeadersWithToken(),
+				params: new HttpParams().appendAll({role: user.role})
 			}
 		).subscribe({
 			next: ((res: any) => {
@@ -79,8 +73,8 @@ export class UserService {
 
 	userDelete(user: any) {
 		return this.http.delete(
-			this.backendUrl + `/users/${user.id}`,
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + `/users/${user.id}`,
+			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res) => {
 				let current = this.userSubject.value;

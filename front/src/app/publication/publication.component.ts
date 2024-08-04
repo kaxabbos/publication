@@ -48,7 +48,7 @@ export class PublicationComponent implements OnInit {
 		if (this.filter2 == 0) res = res.filter(value => value.status === 'DONE');
 		else if (this.filter2 == 1) res = res.filter(value => value.ownerId === this.getUserId());
 		else if (this.filter2 == 2) res = res.filter(value => value.status === 'WAITING');
-		else if (this.filter2 == 3) res = res.filter(value => value.status !== 'DONE');
+		else if (this.filter2 == 3) res = res.filter(value => value.status !== 'DONE' && value.status !== 'WAITING');
 
 		return res;
 	}

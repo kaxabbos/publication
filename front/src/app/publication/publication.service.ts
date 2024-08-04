@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {BehaviorSubject} from "rxjs";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -10,28 +11,17 @@ export class PublicationService {
 	publicationSubject = new BehaviorSubject<any>({
 		publications: [],
 	})
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
 
 	constructor(
 		private http: HttpClient,
+		private global: GlobalService,
 	) {
 	}
 
 	findAll() {
 		this.http.get(
-			this.backendUrl + '/publications',
-			{headers: this.headers},
+			this.global.getBackendUrl() + '/publications',
+			{headers: this.global.getHeaders()},
 		).subscribe({
 			next: ((res: any) => {
 				this.publicationSubject.next({
@@ -47,31 +37,31 @@ export class PublicationService {
 
 	findById(id: any) {
 		return this.http.get(
-			this.backendUrl + `/publications/${id}`,
-			{headers: this.headersWithToken},
+			this.global.getBackendUrl() + `/publications/${id}`,
+			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	addPublication(publication: any) {
 		return this.http.post(
-			this.backendUrl + '/publications',
+			this.global.getBackendUrl() + '/publications',
 			publication,
-			{headers: this.headersWithToken},
+			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	deletePublication(id: any) {
 		return this.http.delete(
-			this.backendUrl + `/publications/${id}`,
-			{headers: this.headersWithToken},
+			this.global.getBackendUrl() + `/publications/${id}`,
+			{headers: this.global.getHeadersWithToken()},
 		)
 	}
 
 	updatePublication(publication: any, id: any) {
 		return this.http.put(
-			this.backendUrl + `/publications/${id}`,
+			this.global.getBackendUrl() + `/publications/${id}`,
 			publication,
-			{headers: this.headersWithToken},
+			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
@@ -79,38 +69,38 @@ export class PublicationService {
 		let formData = new FormData();
 		formData.append('file', file, file.name);
 		return this.http.patch(
-			this.backendUrl + `/publications/${id}/img`,
+			this.global.getBackendUrl() + `/publications/${id}/img`,
 			formData,
-			{headers: this.headersMultipartWithToken},
+			{headers: this.global.getHeadersMultipartWithToken()},
 		);
 	}
 
 	updateStatusDone(id: any) {
 		return this.http.get(
-			this.backendUrl + `/publications/${id}/status/done`,
-			{headers: this.headersWithToken},
+			this.global.getBackendUrl() + `/publications/${id}/status/done`,
+			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	updateStatusClosed(id: any) {
 		return this.http.get(
-			this.backendUrl + `/publications/${id}/status/closed`,
-			{headers: this.headersWithToken},
+			this.global.getBackendUrl() + `/publications/${id}/status/closed`,
+			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	updateStatusWaiting(id: any) {
 		return this.http.get(
-			this.backendUrl + `/publications/${id}/status/waiting`,
-			{headers: this.headersWithToken},
+			this.global.getBackendUrl() + `/publications/${id}/status/waiting`,
+			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	updateStatusCorrection(id: any, note: any) {
 		return this.http.get(
-			this.backendUrl + `/publications/${id}/status/correction`,
+			this.global.getBackendUrl() + `/publications/${id}/status/correction`,
 			{
-				headers: this.headersWithToken,
+				headers: this.global.getHeadersWithToken(),
 				params: new HttpParams().appendAll({
 					note: note
 				})

@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -16,21 +17,22 @@ export class StatsService {
 	});
 
 	constructor(
-		private http: HttpClient
+		private http: HttpClient,
+		private global: GlobalService,
 	) {
 	}
 
 	getStatsUsers() {
 		return this.http.get(
-			this.backendUrl + '/stats/users',
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + '/stats/users',
+			{headers: this.global.getHeadersWithToken()}
 		);
 	}
 
 	getProfile() {
 		return this.http.get(
-			this.backendUrl + '/stats/profile',
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + '/stats/profile',
+			{headers: this.global.getHeadersWithToken()}
 		);
 	}
 

@@ -59,14 +59,18 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.router.navigate(
-					['/error'],
-					{
-						queryParams: {
-							message: e.error.message,
+				if (e.error.code === 404) {
+					this.router.navigate(
+						['/error'],
+						{
+							queryParams: {
+								message: e.error.message,
+							}
 						}
-					}
-				);
+					);
+				} else {
+					this.router.navigate(['/login'])
+				}
 			})
 		})
 	}

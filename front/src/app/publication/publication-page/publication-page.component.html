@@ -10,16 +10,16 @@
 		<div class="col-3">
 			<a (click)="router.navigate(['/publications'])" class="btn btn-primary w-100">Назад</a>
 		</div>
-		<div *ngIf="getUserId() === getOwnerId()" class="col-3">
+		<div *ngIf="getUserId() === getOwnerId() && getRole() === 'USER'" class="col-3">
 			<a (click)="updatePublicationPage()" class="btn btn-success w-100">Обновить</a>
 		</div>
-		<div *ngIf="getUserId() === getOwnerId()" class="col-3">
+		<div *ngIf="getUserId() === getOwnerId() && getRole() === 'USER'" class="col-3">
 			<a (click)="deletePublication()" class="btn btn-danger w-100">Удалить</a>
 		</div>
-		<div *ngIf="getUserId() === getOwnerId() && publication.status === 'CORRECTION'" class="col-3">
+		<div *ngIf="getUserId() === getOwnerId() && publication.status === 'CORRECTION' && getRole() === 'USER'" class="col-3">
 			<a (click)="updateStatusWaiting()" class="btn btn-secondary w-100">На проверку</a>
 		</div>
-		<div *ngIf="getUserId() === getOwnerId() && publication.status === 'CLOSED'" class="col-3">
+		<div *ngIf="getUserId() === getOwnerId() && publication.status === 'CLOSED' && getRole() === 'USER'" class="col-3">
 			<a (click)="updateStatusWaiting()" class="btn btn-secondary w-100">На проверку</a>
 		</div>
 		<div *ngIf="(getRole() === 'MANAGER' || getUserId() === getOwnerId()) && publication.status === 'DONE'"

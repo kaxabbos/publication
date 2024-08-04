@@ -19,12 +19,6 @@ import {GlobalService} from "../global.service";
 })
 export class ProfileComponent implements OnInit {
 
-	// private backendUrl = 'http://localhost:8080';
-	// private headersWithToken = new HttpHeaders({
-	// 	'Content-Type': 'application/json',
-	// 	'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	// });
-
 	profile: any = {
 		username: ''
 	};
@@ -91,7 +85,7 @@ export class ProfileComponent implements OnInit {
 		this.http.patch(
 			this.global.getBackendUrl() + `/users/img`,
 			formData,
-			{headers: this.global.getHeadersWithToken()},
+			{headers: this.global.getHeadersMultipartWithToken()},
 		).subscribe({
 			next: ((res: any) => {
 				this.profile = res.data;
