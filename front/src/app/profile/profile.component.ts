@@ -4,9 +4,11 @@ import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {StatsService} from "../stats/stats.service";
 import {FormsModule} from "@angular/forms";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
+import {GlobalService} from "../global.service";
 
 @Component({
+
 	selector: 'app-profile',
 	standalone: true,
 	imports: [
@@ -17,11 +19,11 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 })
 export class ProfileComponent implements OnInit {
 
-	private backendUrl = 'http://localhost:8080';
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
+	// private backendUrl = 'http://localhost:8080';
+	// private headersWithToken = new HttpHeaders({
+	// 	'Content-Type': 'application/json',
+	// 	'Authorization': 'Bearer ' + localStorage.getItem("token"),
+	// });
 
 	profile: any = {
 		username: ''
@@ -35,13 +37,14 @@ export class ProfileComponent implements OnInit {
 		private router: Router,
 		private statsService: StatsService,
 		private http: HttpClient,
+		private global: GlobalService,
 	) {
 	}
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
 			if (this.getRole() === 'NOT') this.router.navigate(['/login']);
-		});
+		})
 
 		this.authService.getProfile().subscribe({
 			next: ((res: any) => {
@@ -78,7 +81,7 @@ export class ProfileComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.authService.getRole();
+		return this.global.getRole();
 	}
 
 	updateImg(event: any) {
@@ -86,9 +89,9 @@ export class ProfileComponent implements OnInit {
 		let formData = new FormData();
 		formData.append('file', file, file.name);
 		this.http.patch(
-			this.backendUrl + `/users/img`,
+			this.global.getBackendUrl() + `/users/img`,
 			formData,
-			{headers: this.headersMultipartWithToken},
+			{headers: this.global.getHeadersWithToken()},
 		).subscribe({
 			next: ((res: any) => {
 				this.profile = res.data;

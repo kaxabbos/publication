@@ -4,6 +4,7 @@ import {AuthService} from "../../auth/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-publication-update',
@@ -31,13 +32,14 @@ export class PublicationUpdateComponent implements OnInit {
 		private activatedRoute: ActivatedRoute,
 		private publicationService: PublicationService,
 		private authService: AuthService,
+		private global: GlobalService,
 	) {
 	}
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
-			if (this.authService.getRole() !== 'USER') this.router.navigate(['/login']);
-		});
+			if (this.global.getRole() !== 'USER') this.router.navigate(['/login']);
+		})
 
 		this.activatedRoute.queryParams.subscribe(params => {
 			this.id = params['id'];

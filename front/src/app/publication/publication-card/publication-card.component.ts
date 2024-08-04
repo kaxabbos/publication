@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
-import {AuthService} from "../../auth/auth.service";
 import {NgIf} from "@angular/common";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-publication-card',
@@ -17,7 +17,7 @@ export class PublicationCardComponent {
 
 	constructor(
 		private router: Router,
-		private authService: AuthService,
+		private global: GlobalService,
 	) {
 	}
 
@@ -33,10 +33,10 @@ export class PublicationCardComponent {
 	}
 
 	getRole() {
-		return this.authService.getRole();
+		return this.global.getRole();
 	}
 
 	getUserId() {
-		return this.authService.getUserId();
+		return this.global.getUserId();
 	}
 }

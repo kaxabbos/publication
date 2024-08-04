@@ -31,13 +31,12 @@ export class RegComponent {
 
 	regFormSubmit() {
 		this.authService.reg(this.regForm.value).subscribe({
-			next: ((resReg) => {
+			next: (() => {
 				this.authService.login(this.regForm.value).subscribe({
 					next: ((res) => {
 						localStorage.setItem("id", res.data.user.id);
 						localStorage.setItem("role", res.data.user.role);
 						localStorage.setItem("token", res.data.token);
-						localStorage.setItem("locationReload", "0");
 
 						this.router.navigate(['/']);
 					}),

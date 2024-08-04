@@ -2,8 +2,8 @@ package com.services.security;
 
 import com.services.appUser.AppUser;
 import com.services.appUser.MyUserPrincipal;
-import com.services.appUser.converter.UserToUserDtoConverter;
 import com.services.appUser.UserDto;
+import com.services.appUser.converter.UserToUserDtoConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;

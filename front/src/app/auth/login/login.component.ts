@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {NgIf} from "@angular/common";
@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
 	templateUrl: './login.component.html',
 })
 
-export class LoginComponent {
+export class LoginComponent{
 
 	message = "";
 
@@ -36,7 +36,6 @@ export class LoginComponent {
 				localStorage.setItem("id", res.data.user.id);
 				localStorage.setItem("role", res.data.user.role);
 				localStorage.setItem("token", res.data.token);
-				localStorage.setItem("locationReload", "0");
 
 				this.router.navigate(['/']);
 			}),

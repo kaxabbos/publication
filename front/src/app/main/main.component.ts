@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../auth/auth.service";
 
 @Component({
 	selector: 'app-main',
@@ -7,14 +8,13 @@ import {Component, OnInit} from '@angular/core';
 	templateUrl: './main.component.html',
 })
 
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit{
+	constructor(
+		private authService: AuthService,
+	) {
+	}
+
 	ngOnInit(): void {
-		if (localStorage.getItem("locationReload") === null) {
-			localStorage.setItem("locationReload", '0');
-		}
-		if (localStorage.getItem('locationReload') === '0') {
-			window.location.reload();
-			localStorage.setItem("locationReload", '1');
-		}
+		this.authService.getUserProfile();
 	}
 }

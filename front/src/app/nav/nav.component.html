@@ -31,7 +31,7 @@
 					<a (click)="router.navigate(['/profile'])" class="nav-link" role="button">Профиль</a>
 				</li>
 				<li *ngIf="getRole() !== 'NOT'" class="nav-item" data-aos="zoom-in">
-					<a (click)="authService.logout()" class="nav-link" role="button">Выход</a>
+					<a (click)="logout()" class="nav-link" role="button">Выход</a>
 				</li>
 			</ul>
 		</div>

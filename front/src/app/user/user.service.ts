@@ -58,7 +58,7 @@ export class UserService {
 			"",
 			{
 				headers: this.headersWithToken,
-				params: new HttpParams().appendAll({role: user.role})
+				params: new HttpParams().appendAll({role: user.nextRole})
 			}
 		).subscribe({
 			next: ((res: any) => {

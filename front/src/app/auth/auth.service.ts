@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {GlobalService} from "../global.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -8,28 +9,16 @@ import {Router} from "@angular/router";
 
 export class AuthService {
 
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersMultipartWithToken = new HttpHeaders({
-		'enctype': 'multipart/form-data',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-
 	constructor(
 		private http: HttpClient,
-		private router: Router
+		private router: Router,
+		private global: GlobalService,
 	) {
 	}
 
 	login(user: any) {
 		return this.http.post<any>(
-			this.backendUrl + '/users/login',
+			this.global.getBackendUrl() + '/users/login',
 			"",
 			{
 				headers: {
@@ -42,47 +31,37 @@ export class AuthService {
 
 	reg(user: any) {
 		return this.http.post<any>(
-			this.backendUrl + '/users',
+			this.global.getBackendUrl() + '/users',
 			user,
-			{headers: this.headers}
+			{headers: this.global.getHeaders()}
 		)
 	}
 
 	getUserProfile() {
 		return this.http.get<any>(
-			this.backendUrl + '/users/profile',
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + '/users/profile',
+			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
-			next: ((res) => {
-				localStorage.setItem("id", res.data.id);
-				localStorage.setItem("role", res.data.role);
+			next: ((res: any) => {
+				localStorage.setItem('role', res.data.role)
 			}),
-			error: ((error) => {
-				console.log("error", error);
-				localStorage.setItem("id", "0");
-				localStorage.setItem("role", "NOT");
-				localStorage.setItem("token", "");
+			error: (() => {
+				localStorage.clear()
 			})
 		});
 	}
 
 	getProfile() {
+		console.log(localStorage.getItem('token'));
+		console.log(this.global.getHeadersWithToken().get('Authorization'));
 		return this.http.get<any>(
-			this.backendUrl + '/users/profile',
-			{headers: this.headersWithToken}
+			this.global.getBackendUrl() + '/users/profile',
+			{headers: this.global.getHeadersWithToken()}
 		);
 	}
 
-	getUserId() {
-		return localStorage.getItem('id') !== null ? Number(localStorage.getItem('id')) : 0;
-	}
-
-	getRole() {
-		return localStorage.getItem("role") !== null ? localStorage.getItem("role") : 'NOT';
-	}
-
 	logout() {
-		localStorage.clear();
+		localStorage.clear()
 		this.router.navigate(['/login'])
 	}
 }

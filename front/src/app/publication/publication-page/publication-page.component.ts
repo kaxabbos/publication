@@ -5,6 +5,7 @@ import {PublicationService} from "../publication.service";
 import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {PublicationApplicationService} from "../publication-application.service";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-publication-page',
@@ -30,6 +31,7 @@ export class PublicationPageComponent implements OnInit {
 		private authService: AuthService,
 		private publicationService: PublicationService,
 		private applicationService: PublicationApplicationService,
+		private global: GlobalService
 	) {
 	}
 
@@ -44,9 +46,8 @@ export class PublicationPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
-			if (this.authService.getRole() === 'NOT') this.router.navigate(['/login']);
-		});
-
+			if (this.global.getRole() === 'NOT') this.router.navigate(['/login']);
+		})
 
 		this.activatedRoute.queryParams.subscribe(params => {
 			this.id = params['id'];
@@ -71,11 +72,11 @@ export class PublicationPageComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.authService.getRole();
+		return this.global.getRole();
 	}
 
 	getUserId() {
-		return this.authService.getUserId();
+		return this.global.getUserId();
 	}
 
 	getOwnerId() {

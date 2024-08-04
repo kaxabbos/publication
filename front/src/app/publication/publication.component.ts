@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../auth/auth.service";
 import {PublicationService} from "./publication.service";
 import {PublicationCardComponent} from "./publication-card/publication-card.component";
+import {GlobalService} from "../global.service";
 
 @Component({
 	selector: 'app-publication',
@@ -28,6 +29,7 @@ export class PublicationComponent implements OnInit {
 		public router: Router,
 		private publicationService: PublicationService,
 		private authService: AuthService,
+		private global: GlobalService
 	) {
 	}
 
@@ -62,11 +64,11 @@ export class PublicationComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.authService.getRole();
+		return this.global.getRole();
 	}
 
 	getUserId() {
-		return this.authService.getUserId();
+		return this.global.getUserId();
 	}
 
 }
