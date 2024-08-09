@@ -1,0 +1,4 @@
+.idea
+target
+src/main/resources/img/users/*
+src/main/resources/img/publications/*

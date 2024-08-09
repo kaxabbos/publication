@@ -21,7 +21,6 @@ export class PublicationService {
 	findAll() {
 		this.http.get(
 			this.global.getBackendUrl() + '/publications',
-			{headers: this.global.getHeaders()},
 		).subscribe({
 			next: ((res: any) => {
 				this.publicationSubject.next({
@@ -46,7 +45,7 @@ export class PublicationService {
 		return this.http.post(
 			this.global.getBackendUrl() + '/publications',
 			publication,
-			{headers: this.global.getHeadersWithToken()},
+			{headers: this.global.getHeadersJsonWithToken()},
 		);
 	}
 
@@ -61,7 +60,7 @@ export class PublicationService {
 		return this.http.put(
 			this.global.getBackendUrl() + `/publications/${id}`,
 			publication,
-			{headers: this.global.getHeadersWithToken()},
+			{headers: this.global.getHeadersJsonWithToken()},
 		);
 	}
 

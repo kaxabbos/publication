@@ -18,7 +18,7 @@ export class PublicationApplicationService {
 			this.global.getBackendUrl() + `/publications/${id}/applications`,
 			"",
 			{
-				headers: this.global.getHeadersWithToken(),
+				headers: this.global.getHeadersJsonWithToken(),
 				params: new HttpParams().appendAll({
 					description: description,
 				}),
@@ -29,14 +29,14 @@ export class PublicationApplicationService {
 	doneApplication(id: any) {
 		return this.http.get(
 			this.global.getBackendUrl() + `/applications/${id}/done`,
-			{headers: this.global.getHeadersWithToken(),}
+			{headers: this.global.getHeadersJsonWithToken(),}
 		)
 	}
 
 	rejectApplication(id: any) {
 		return this.http.get(
 			this.global.getBackendUrl() + `/applications/${id}/reject`,
-			{headers: this.global.getHeadersWithToken(),}
+			{headers: this.global.getHeadersJsonWithToken(),}
 		)
 	}
 

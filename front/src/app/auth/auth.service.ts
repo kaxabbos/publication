@@ -22,7 +22,6 @@ export class AuthService {
 			"",
 			{
 				headers: {
-					'Content-Type': 'application/json',
 					'Authorization': 'Basic ' + btoa(user.username + ":" + user.password)
 				}
 			}
@@ -33,7 +32,6 @@ export class AuthService {
 		return this.http.post<any>(
 			this.global.getBackendUrl() + '/users',
 			user,
-			{headers: this.global.getHeaders()}
 		)
 	}
 
@@ -53,7 +51,7 @@ export class AuthService {
 
 	getProfile() {
 		console.log(localStorage.getItem('token'));
-		console.log(this.global.getHeadersWithToken().get('Authorization'));
+		console.log(this.global.getHeadersJsonWithToken().get('Authorization'));
 		return this.http.get<any>(
 			this.global.getBackendUrl() + '/users/profile',
 			{headers: this.global.getHeadersWithToken()}
