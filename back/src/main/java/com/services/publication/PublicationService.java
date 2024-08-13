@@ -68,7 +68,7 @@ public class PublicationService {
 
         try {
             if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
-                publication.setImg(Global.saveFile(file, "/publications"));
+                publication.setImg(Global.saveFile(file, "publications"));
             }
         } catch (Exception e) {
             throw new BadRequestException("Некорректный файл");

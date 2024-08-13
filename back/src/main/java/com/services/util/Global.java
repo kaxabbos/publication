@@ -16,14 +16,20 @@ public class Global {
     public static final String MANAGER = "MANAGER";
     public static final String USER = "USER";
 
-    public static String getUploadImg() {
+    private static String getUploadImg() {
         StringBuilder dir = new StringBuilder(System.getProperty("user.dir"));
         for (int j = 0; j < dir.length(); j++) {
             if (dir.charAt(j) == '\\') {
                 dir.setCharAt(j, '/');
             }
         }
-        dir.append("/src/main/resources/img");
+
+        if (dir.toString().startsWith("/application")) {
+            dir.append("/BOOT-INF/classes/img");
+        } else {
+            dir.append("/src/main/resources/img");
+        }
+
         return dir.toString();
     }
 
@@ -50,7 +56,7 @@ public class Global {
             if (!uploadDir.exists()) uploadDir.mkdir();
             String result = path + "/" + uuidFile + "_" + file.getOriginalFilename();
             file.transferTo(new File(uploadImg + "/" + result));
-            return "http://localhost:8080/img" + result;
+            return "http://localhost:8080/img/" + result;
         } else throw new IOException();
     }
 

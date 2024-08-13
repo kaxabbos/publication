@@ -96,7 +96,7 @@ public class UserService implements UserDetailsService {
 
         try {
             if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
-                user.setImg(Global.saveFile(file, "/users"));
+                user.setImg(Global.saveFile(file, "users"));
             }
         } catch (Exception e) {
             throw new BadRequestException("");
