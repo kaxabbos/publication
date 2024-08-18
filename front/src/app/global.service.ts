@@ -7,11 +7,6 @@ import {HttpHeaders} from "@angular/common/http";
 
 export class GlobalService {
 
-	private _userid: number = 0;
-	private _role: string = 'NOT';
-	private _token: string = '';
-	private _backendURL: string = 'http://localhost:8080';
-
 	public set(userid: number, role: string, token: string) {
 		this.userid = userid;
 		this.role = role;
@@ -25,31 +20,31 @@ export class GlobalService {
 	}
 
 	get userid(): number {
-		return this._userid;
+		return Number(localStorage.getItem('userid')) || 0;
 	}
 
 	set userid(value: number) {
-		this._userid = value;
+		localStorage.setItem('userid', value + '');
 	}
 
 	get role(): string {
-		return this._role;
+		return localStorage.getItem('role') || 'NOT';
 	}
 
 	set role(value: string) {
-		this._role = value;
+		localStorage.setItem('role', value);
 	}
 
 	get token(): string {
-		return this._token;
+		return localStorage.getItem('token') || '';
 	}
 
 	set token(value: string) {
-		this._token = value;
+		localStorage.setItem('token', value);
 	}
 
 	get backendURL(): string {
-		return this._backendURL;
+		return 'http://localhost:8080';
 	}
 
 	getHeadersMultipartWithToken() {
