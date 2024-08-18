@@ -1,4 +1,19 @@
+#networks :
+#    publication :
+
 services :
+#    nginx :
+#        image :          nginx:stable-alpine
+#        container_name : nginx
+#        ports :
+#        - 80:80
+#        volumes :
+#        - './nginx.conf:/etc/nginx/nginx.conf'
+#        depends_on :
+#        - application-server
+#        - web-server
+#        networks :
+#        - publication
     database :
         image :          postgres
         container_name : database
@@ -8,6 +23,8 @@ services :
             POSTGRES_DB :       publication
         ports :
         - 5432:5432
+#        networks :
+#        - publication
     application-server :
         image :          application-server:latest
         build :
@@ -24,6 +41,8 @@ services :
         - SPRING_DATASOURCE_USERNAME=postgres
         - SPRING_DATASOURCE_PASSWORD=root
         - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+#        networks :
+#        - publication
     web-server :
         image :          web-server:latest
         build :
@@ -32,3 +51,7 @@ services :
         container_name : web-server
         ports :
         - 4200:80
+        depends_on :
+        - application-server
+#        networks :
+#        - publication
