@@ -22,7 +22,7 @@ export class NavComponent {
 	}
 
 	getRole() {
-		return this.global.getRole();
+		return this.global.role;
 	}
 
 	logout() {

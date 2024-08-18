@@ -15,7 +15,7 @@ export class PublicationApplicationService {
 
 	addApplication(id: any, description: any) {
 		return this.http.post(
-			this.global.getBackendUrl() + `/publications/${id}/applications`,
+			this.global.backendURL + `/publications/${id}/applications`,
 			"",
 			{
 				headers: this.global.getHeadersJsonWithToken(),
@@ -28,14 +28,14 @@ export class PublicationApplicationService {
 
 	doneApplication(id: any) {
 		return this.http.get(
-			this.global.getBackendUrl() + `/applications/${id}/done`,
+			this.global.backendURL + `/applications/${id}/done`,
 			{headers: this.global.getHeadersJsonWithToken(),}
 		)
 	}
 
 	rejectApplication(id: any) {
 		return this.http.get(
-			this.global.getBackendUrl() + `/applications/${id}/reject`,
+			this.global.backendURL + `/applications/${id}/reject`,
 			{headers: this.global.getHeadersJsonWithToken(),}
 		)
 	}

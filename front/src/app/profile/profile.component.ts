@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.global.getRole();
+		return this.global.role;
 	}
 
 	updateImg(event: any) {
@@ -83,7 +83,7 @@ export class ProfileComponent implements OnInit {
 		let formData = new FormData();
 		formData.append('file', file, file.name);
 		this.http.patch(
-			this.global.getBackendUrl() + `/users/img`,
+			this.global.backendURL + `/users/img`,
 			formData,
 			{headers: this.global.getHeadersMultipartWithToken()},
 		).subscribe({

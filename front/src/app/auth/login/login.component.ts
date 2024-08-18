@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {NgIf} from "@angular/common";
 import {Router} from "@angular/router";
+import {GlobalService} from "../../global.service";
 
 @Component({
 	selector: 'app-login',
@@ -15,7 +16,7 @@ import {Router} from "@angular/router";
 	templateUrl: './login.component.html',
 })
 
-export class LoginComponent{
+export class LoginComponent {
 
 	message = "";
 
@@ -27,16 +28,14 @@ export class LoginComponent{
 	constructor(
 		private authService: AuthService,
 		private router: Router,
+		private global: GlobalService,
 	) {
 	}
 
 	loginFormSubmit() {
 		this.authService.login(this.loginForm.value).subscribe({
 			next: ((res) => {
-				localStorage.setItem("id", res.data.user.id);
-				localStorage.setItem("role", res.data.user.role);
-				localStorage.setItem("token", res.data.token);
-
+				this.global.set(res.data.user.id, res.data.user.role, res.data.token);
 				this.router.navigate(['/']);
 			}),
 			error: ((error) => {

@@ -23,7 +23,7 @@ export class UserService {
 
 	getUsers() {
 		return this.http.get(
-			this.global.getBackendUrl() + '/users',
+			this.global.backendURL + '/users',
 			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res: any) => {
@@ -48,7 +48,7 @@ export class UserService {
 
 	setRole(user: any) {
 		return this.http.patch(
-			this.global.getBackendUrl() + `/users/${user.id}/role`,
+			this.global.backendURL + `/users/${user.id}/role`,
 			"",
 			{
 				headers: this.global.getHeadersWithToken(),
@@ -73,7 +73,7 @@ export class UserService {
 
 	userDelete(user: any) {
 		return this.http.delete(
-			this.global.getBackendUrl() + `/users/${user.id}`,
+			this.global.backendURL + `/users/${user.id}`,
 			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res) => {

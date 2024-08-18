@@ -33,10 +33,10 @@ export class PublicationCardComponent {
 	}
 
 	getRole() {
-		return this.global.getRole();
+		return this.global.role;
 	}
 
 	getUserId() {
-		return this.global.getUserId();
+		return this.global.userid;
 	}
 }

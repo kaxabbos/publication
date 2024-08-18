@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
 
 	ngOnInit() {
 		this.authService.getUserProfile().add(() => {
-			if (this.global.getRole() !== 'ADMIN') this.router.navigate(['/login'])
+			if (this.global.role !== 'ADMIN') this.router.navigate(['/login'])
 		})
 
 		this.userService.userSubject.subscribe(value => {
@@ -55,6 +55,6 @@ export class UserComponent implements OnInit {
 	}
 
 	getUserId() {
-		return this.global.getUserId();
+		return this.global.userid;
 	}
 }

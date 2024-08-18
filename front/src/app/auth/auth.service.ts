@@ -18,7 +18,7 @@ export class AuthService {
 
 	login(user: any) {
 		return this.http.post<any>(
-			this.global.getBackendUrl() + '/users/login',
+			this.global.backendURL + '/users/login',
 			"",
 			{
 				headers: {
@@ -30,18 +30,18 @@ export class AuthService {
 
 	reg(user: any) {
 		return this.http.post<any>(
-			this.global.getBackendUrl() + '/users',
+			this.global.backendURL + '/users',
 			user,
 		)
 	}
 
 	getUserProfile() {
 		return this.http.get<any>(
-			this.global.getBackendUrl() + '/users/profile',
+			this.global.backendURL + '/users/profile',
 			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res: any) => {
-				localStorage.setItem('role', res.data.role)
+				this.global.role = res.data.role;
 			}),
 			error: (() => {
 				localStorage.clear()
@@ -53,13 +53,13 @@ export class AuthService {
 		console.log(localStorage.getItem('token'));
 		console.log(this.global.getHeadersJsonWithToken().get('Authorization'));
 		return this.http.get<any>(
-			this.global.getBackendUrl() + '/users/profile',
+			this.global.backendURL + '/users/profile',
 			{headers: this.global.getHeadersWithToken()}
 		);
 	}
 
 	logout() {
-		localStorage.clear()
+		this.global.clear()
 		this.router.navigate(['/login'])
 	}
 }

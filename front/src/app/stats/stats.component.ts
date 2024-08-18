@@ -35,7 +35,7 @@ export class StatsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
-			if (this.global.getRole() !== 'ADMIN') this.router.navigate(['/login']);
+			if (this.global.role !== 'ADMIN') this.router.navigate(['/login']);
 		})
 
 		this.statsService.getStatsUsers().subscribe({

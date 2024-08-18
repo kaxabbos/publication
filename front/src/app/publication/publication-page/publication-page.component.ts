@@ -46,7 +46,7 @@ export class PublicationPageComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.authService.getUserProfile().add(() => {
-			if (this.global.getRole() === 'NOT') this.router.navigate(['/login']);
+			if (this.global.role === 'NOT') this.router.navigate(['/login']);
 		})
 
 		this.activatedRoute.queryParams.subscribe(params => {
@@ -76,11 +76,11 @@ export class PublicationPageComponent implements OnInit {
 	}
 
 	getRole() {
-		return this.global.getRole();
+		return this.global.role;
 	}
 
 	getUserId() {
-		return this.global.getUserId();
+		return this.global.userid;
 	}
 
 	getOwnerId() {

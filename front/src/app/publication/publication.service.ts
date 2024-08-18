@@ -20,7 +20,7 @@ export class PublicationService {
 
 	findAll() {
 		this.http.get(
-			this.global.getBackendUrl() + '/publications',
+			this.global.backendURL + '/publications',
 		).subscribe({
 			next: ((res: any) => {
 				this.publicationSubject.next({
@@ -36,14 +36,14 @@ export class PublicationService {
 
 	findById(id: any) {
 		return this.http.get(
-			this.global.getBackendUrl() + `/publications/${id}`,
+			this.global.backendURL + `/publications/${id}`,
 			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	addPublication(publication: any) {
 		return this.http.post(
-			this.global.getBackendUrl() + '/publications',
+			this.global.backendURL + '/publications',
 			publication,
 			{headers: this.global.getHeadersJsonWithToken()},
 		);
@@ -51,14 +51,14 @@ export class PublicationService {
 
 	deletePublication(id: any) {
 		return this.http.delete(
-			this.global.getBackendUrl() + `/publications/${id}`,
+			this.global.backendURL + `/publications/${id}`,
 			{headers: this.global.getHeadersWithToken()},
 		)
 	}
 
 	updatePublication(publication: any, id: any) {
 		return this.http.put(
-			this.global.getBackendUrl() + `/publications/${id}`,
+			this.global.backendURL + `/publications/${id}`,
 			publication,
 			{headers: this.global.getHeadersJsonWithToken()},
 		);
@@ -68,7 +68,7 @@ export class PublicationService {
 		let formData = new FormData();
 		formData.append('file', file, file.name);
 		return this.http.patch(
-			this.global.getBackendUrl() + `/publications/${id}/img`,
+			this.global.backendURL + `/publications/${id}/img`,
 			formData,
 			{headers: this.global.getHeadersMultipartWithToken()},
 		);
@@ -76,28 +76,28 @@ export class PublicationService {
 
 	updateStatusDone(id: any) {
 		return this.http.get(
-			this.global.getBackendUrl() + `/publications/${id}/status/done`,
+			this.global.backendURL + `/publications/${id}/status/done`,
 			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	updateStatusClosed(id: any) {
 		return this.http.get(
-			this.global.getBackendUrl() + `/publications/${id}/status/closed`,
+			this.global.backendURL + `/publications/${id}/status/closed`,
 			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	updateStatusWaiting(id: any) {
 		return this.http.get(
-			this.global.getBackendUrl() + `/publications/${id}/status/waiting`,
+			this.global.backendURL + `/publications/${id}/status/waiting`,
 			{headers: this.global.getHeadersWithToken()},
 		);
 	}
 
 	updateStatusCorrection(id: any, note: any) {
 		return this.http.get(
-			this.global.getBackendUrl() + `/publications/${id}/status/correction`,
+			this.global.backendURL + `/publications/${id}/status/correction`,
 			{
 				headers: this.global.getHeadersWithToken(),
 				params: new HttpParams().appendAll({
