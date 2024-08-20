@@ -7,15 +7,6 @@ import {GlobalService} from "../global.service";
 })
 export class StatsService {
 
-	private backendUrl = 'http://localhost:8080';
-	private headers = new HttpHeaders({
-		'Content-Type': 'application/json',
-	});
-	private headersWithToken = new HttpHeaders({
-		'Content-Type': 'application/json',
-		'Authorization': 'Bearer ' + localStorage.getItem("token"),
-	});
-
 	constructor(
 		private http: HttpClient,
 		private global: GlobalService,
