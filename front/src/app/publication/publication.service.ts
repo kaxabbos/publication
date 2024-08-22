@@ -23,7 +23,10 @@ export class PublicationService {
 			this.global.backendURL + '/publications',
 		).subscribe({
 			next: ((res: any) => {
-				this.publicationSubject.next()
+				this.publicationSubject.next({
+					...this.publicationSubject.value,
+					publications: res.data,
+				})
 			}),
 			error: (e: any) => {
 				console.log("error", e);
