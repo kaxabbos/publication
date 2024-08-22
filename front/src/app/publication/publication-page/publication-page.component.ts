@@ -96,20 +96,8 @@ export class PublicationPageComponent implements OnInit {
 
 	deletePublication() {
 		this.publicationService.deletePublication(this.id).subscribe({
-			next: ((res: any) => {
+			next: (() => {
 				this.router.navigate(['/publications']);
-			}),
-			error: ((e) => {
-				console.log("error", e);
-				this.message = e.error.message;
-			})
-		})
-	}
-
-	updateImg(event: any) {
-		this.publicationService.updateImg(event.target.files[0], this.id).subscribe({
-			next: ((res: any) => {
-				this.publication = res.data;
 			}),
 			error: ((e) => {
 				console.log("error", e);

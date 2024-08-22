@@ -27,10 +27,7 @@ export class UserService {
 			{headers: this.global.getHeadersWithToken()}
 		).subscribe({
 			next: ((res: any) => {
-				this.userSubject.next({
-					...this.userSubject.value,
-					users: res.data,
-				});
+				this.userSubject.next();
 			}),
 			error: ((error) => {
 				console.log("error", error);
@@ -79,10 +76,7 @@ export class UserService {
 			next: ((res) => {
 				let current = this.userSubject.value;
 				let updated = current.users.filter((i: any) => i.id !== user.id);
-				this.userSubject.next({
-					...current,
-					users: updated
-				});
+				this.userSubject.next();
 			}),
 			error: ((error) => {
 				console.log("error", error);

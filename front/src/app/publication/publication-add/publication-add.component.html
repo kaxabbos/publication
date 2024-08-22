@@ -21,11 +21,15 @@
 			<p class="fs-4 m-0">Цена</p>
 			<input class="form-control" formControlName="price" min="0.01" step="0.01" type="number">
 		</div>
+		<div class="col mb-2">
+			<p class="fs-4 m-0">Фото</p>
+			<input class="form-control" type="file" accept="image/*" (change)="updateImg($event)">
+		</div>
 		<div class="col-12 mb-2">
 			<p class="fs-4 m-0">Описание</p>
 			<textarea class="form-control" formControlName="description"></textarea>
 		</div>
-		<div *ngIf="!publication.invalid" class="col-12 mb-2" data-aos="zoom-in">
+		<div *ngIf="!publication.invalid && file !== null" class="col-12 mb-2" data-aos="zoom-in">
 			<button class="btn btn-primary w-100" type="submit">Добавить</button>
 		</div>
 	</form>

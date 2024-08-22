@@ -20,10 +20,12 @@ export class PublicationUpdateComponent implements OnInit {
 	id: any;
 
 	publication = new FormGroup({
-		name: new FormControl("", Validators.required),
-		price: new FormControl("", [Validators.required, Validators.min(0.01)]),
-		description: new FormControl("", Validators.required),
+		name: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
+		price: new FormControl("", [Validators.required, Validators.min(0.01), Validators.max(1000000)]),
+		description: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	})
+
+	file: any = null;
 
 	message: any;
 
@@ -70,8 +72,21 @@ export class PublicationUpdateComponent implements OnInit {
 
 	updatePublication() {
 		this.publicationService.updatePublication(this.publication.value, this.id).subscribe({
-			next: ((res) => {
-				this.publicationPage()
+			next: (() => {
+				if (this.file !== null) {
+					this.publicationService.updateImg(this.file, this.id).subscribe({
+						next: (() => {
+							this.publicationPage()
+						}),
+						error: ((e) => {
+							console.log("error", e);
+							this.message = e.error.message;
+						})
+					})
+				} else {
+					this.publicationPage()
+
+				}
 			}),
 			error: ((e) => {
 				console.log("error", e);
@@ -82,5 +97,9 @@ export class PublicationUpdateComponent implements OnInit {
 
 	publicationPage() {
 		this.router.navigate(['/publication'], {queryParams: {id: this.id}});
+	}
+
+	updateImg(event: any) {
+		this.file = event.target.files[0];
 	}
 }
