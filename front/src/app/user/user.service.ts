@@ -24,7 +24,7 @@ export class UserService {
 	getUsers() {
 		return this.http.get(
 			this.global.backendURL + '/users',
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		).subscribe({
 			next: ((res: any) => {
 				this.userSubject.next({
@@ -51,7 +51,7 @@ export class UserService {
 			this.global.backendURL + `/users/${user.id}/role`,
 			"",
 			{
-				headers: this.global.getHeadersWithToken(),
+				headers: this.global.headersToken,
 				params: new HttpParams().appendAll({role: user.role})
 			}
 		).subscribe({
@@ -74,7 +74,7 @@ export class UserService {
 	userDelete(user: any) {
 		return this.http.delete(
 			this.global.backendURL + `/users/${user.id}`,
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		).subscribe({
 			next: ((res) => {
 				let current = this.userSubject.value;

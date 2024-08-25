@@ -47,23 +47,23 @@ export class GlobalService {
 		return 'http://localhost:8080';
 	}
 
-	getHeadersMultipartWithToken() {
+	get headersToken() {
+		return new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + this.token,
+		});
+	}
+
+	get headersJsonToken() {
+		return new HttpHeaders({
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + this.token,
+		});
+	}
+
+	get headersMultipartToken() {
 		return new HttpHeaders({
 			'enctype': 'multipart/form-data',
-			'Authorization': 'Bearer ' + this.token,
-		});
-	}
-
-	getHeadersWithToken() {
-		return new HttpHeaders({
-			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + this.token,
-		});
-	}
-
-	getHeadersJsonWithToken() {
-		return new HttpHeaders({
-			'Content-Type': 'application/json',
 			'Authorization': 'Bearer ' + this.token,
 		});
 	}

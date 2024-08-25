@@ -16,14 +16,14 @@ export class StatsService {
 	getStatsUsers() {
 		return this.http.get(
 			this.global.backendURL + '/stats/users',
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		);
 	}
 
 	getProfile() {
 		return this.http.get(
 			this.global.backendURL + '/stats/profile',
-			{headers: this.global.getHeadersWithToken()}
+			{headers: this.global.headersToken}
 		);
 	}
 

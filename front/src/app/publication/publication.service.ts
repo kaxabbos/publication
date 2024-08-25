@@ -37,7 +37,7 @@ export class PublicationService {
 	findById(id: any) {
 		return this.http.get(
 			this.global.backendURL + `/publications/${id}`,
-			{headers: this.global.getHeadersWithToken()},
+			{headers: this.global.headersToken},
 		);
 	}
 
@@ -45,14 +45,14 @@ export class PublicationService {
 		return this.http.post(
 			this.global.backendURL + '/publications',
 			publication,
-			{headers: this.global.getHeadersJsonWithToken()},
+			{headers: this.global.headersJsonToken},
 		);
 	}
 
 	deletePublication(id: any) {
 		return this.http.delete(
 			this.global.backendURL + `/publications/${id}`,
-			{headers: this.global.getHeadersWithToken()},
+			{headers: this.global.headersToken},
 		)
 	}
 
@@ -60,7 +60,7 @@ export class PublicationService {
 		return this.http.put(
 			this.global.backendURL + `/publications/${id}`,
 			publication,
-			{headers: this.global.getHeadersJsonWithToken()},
+			{headers: this.global.headersJsonToken},
 		);
 	}
 
@@ -70,28 +70,28 @@ export class PublicationService {
 		return this.http.patch(
 			this.global.backendURL + `/publications/${id}/img`,
 			formData,
-			{headers: this.global.getHeadersMultipartWithToken()},
+			{headers: this.global.headersMultipartToken},
 		);
 	}
 
 	updateStatusDone(id: any) {
 		return this.http.get(
 			this.global.backendURL + `/publications/${id}/status/done`,
-			{headers: this.global.getHeadersWithToken()},
+			{headers: this.global.headersToken},
 		);
 	}
 
 	updateStatusClosed(id: any) {
 		return this.http.get(
 			this.global.backendURL + `/publications/${id}/status/closed`,
-			{headers: this.global.getHeadersWithToken()},
+			{headers: this.global.headersToken},
 		);
 	}
 
 	updateStatusWaiting(id: any) {
 		return this.http.get(
 			this.global.backendURL + `/publications/${id}/status/waiting`,
-			{headers: this.global.getHeadersWithToken()},
+			{headers: this.global.headersToken},
 		);
 	}
 
@@ -99,7 +99,7 @@ export class PublicationService {
 		return this.http.get(
 			this.global.backendURL + `/publications/${id}/status/correction`,
 			{
-				headers: this.global.getHeadersWithToken(),
+				headers: this.global.headersToken,
 				params: new HttpParams().appendAll({
 					note: note
 				})

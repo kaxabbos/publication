@@ -85,7 +85,7 @@ export class ProfileComponent implements OnInit {
 		this.http.patch(
 			this.global.backendURL + `/users/img`,
 			formData,
-			{headers: this.global.getHeadersMultipartWithToken()},
+			{headers: this.global.headersMultipartToken},
 		).subscribe({
 			next: ((res: any) => {
 				this.profile = res.data;
