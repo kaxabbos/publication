@@ -21,7 +21,7 @@ export class UserService {
 	) {
 	}
 
-	getUsers() {
+	findAll() {
 		return this.http.get(
 			this.global.backendURL + '/users',
 			{headers: this.global.headersToken}
@@ -71,7 +71,7 @@ export class UserService {
 		});
 	}
 
-	userDelete(user: any) {
+	delete(user: any) {
 		return this.http.delete(
 			this.global.backendURL + `/users/${user.id}`,
 			{headers: this.global.headersToken}

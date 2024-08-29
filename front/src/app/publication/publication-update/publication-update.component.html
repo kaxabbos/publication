@@ -8,7 +8,7 @@
 
 	<div class="row mb-5 d-flex justify-content-center" data-aos="zoom-in">
 		<div class="col-4">
-			<a (click)="publicationPage()" class="btn btn-primary w-100">Назад</a>
+			<a appNavigate [navigateURL]="'publication'" [queryParams]="{id: id}" class="btn btn-primary w-100">Назад</a>
 		</div>
 	</div>
 

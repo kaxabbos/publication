@@ -5,19 +5,19 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-publication-update',
 	standalone: true,
 	imports: [
 		ReactiveFormsModule,
-		NgIf
+		NgIf,
+		NavigateDirective
 	],
 	templateUrl: './publication-update.component.html',
 })
 export class PublicationUpdateComponent implements OnInit {
-
-	id: any;
 
 	publication = new FormGroup({
 		name: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
@@ -25,9 +25,9 @@ export class PublicationUpdateComponent implements OnInit {
 		description: new FormControl("", [Validators.required, Validators.minLength(1), Validators.maxLength(255)]),
 	})
 
+	id: number = 0;
 	file: any = null;
-
-	message: any;
+	message: string = '';
 
 	constructor(
 		public router: Router,
@@ -76,7 +76,7 @@ export class PublicationUpdateComponent implements OnInit {
 				if (this.file !== null) {
 					this.publicationService.updateImg(this.file, this.id).subscribe({
 						next: (() => {
-							this.publicationPage()
+							this.publicationPage();
 						}),
 						error: ((e) => {
 							console.log("error", e);
@@ -84,8 +84,7 @@ export class PublicationUpdateComponent implements OnInit {
 						})
 					})
 				} else {
-					this.publicationPage()
-
+					this.publicationPage();
 				}
 			}),
 			error: ((e) => {

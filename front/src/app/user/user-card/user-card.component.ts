@@ -36,7 +36,7 @@ export class UserCardComponent implements OnInit {
 		this.userService.setRole(this.user);
 	}
 
-	deleteUser() {
-		this.userService.userDelete(this.user);
+	delete() {
+		this.userService.delete(this.user);
 	}
 }

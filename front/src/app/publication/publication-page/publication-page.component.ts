@@ -6,24 +6,26 @@ import {NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {PublicationApplicationService} from "../publication-application.service";
 import {GlobalService} from "../../global.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-publication-page',
 	standalone: true,
 	imports: [
 		NgIf,
-		FormsModule
+		FormsModule,
+		NavigateDirective
 	],
 	templateUrl: './publication-page.component.html',
 })
 export class PublicationPageComponent implements OnInit {
-	id: any;
+	id: number = 0;
 	publication: any = {
 		name: ''
 	};
-	message: any;
-	note: any = '';
-	description: any = '';
+	message: string = '';
+	note: string = '';
+	description: string = '';
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -35,11 +37,11 @@ export class PublicationPageComponent implements OnInit {
 	) {
 	}
 
-	getApplications(): any {
+	get sortedApplications(): any {
 		let applications = this.publication === null ? [] : this.publication.applications;
 		applications.sort((a: any, b: any) => (a.id < b.id ? 1 : -1));
-		if (this.getUserId() !== this.getOwnerId() && this.getRole() === 'USER') {
-			applications = applications.filter((i: any) => i.ownerId === this.getUserId());
+		if (this.userid !== this.ownerid && this.role === 'USER') {
+			applications = applications.filter((i: any) => i.ownerId === this.userid);
 		}
 		return applications
 	}
@@ -75,23 +77,16 @@ export class PublicationPageComponent implements OnInit {
 		})
 	}
 
-	getRole() {
+	get role() {
 		return this.global.role;
 	}
 
-	getUserId() {
+	get userid() {
 		return this.global.userid;
 	}
 
-	getOwnerId() {
+	get ownerid() {
 		return this.publication.ownerId;
-	}
-
-	updatePublicationPage() {
-		this.router.navigate(
-			['/publicationUpdate'],
-			{queryParams: {id: this.id}}
-		);
 	}
 
 	deletePublication() {

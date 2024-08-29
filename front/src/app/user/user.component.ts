@@ -33,7 +33,7 @@ export class UserComponent implements OnInit {
 	) {
 	}
 
-	getSortedUsers() {
+	get sorted() {
 		return this.users.sort((a: any, b: any) => {
 			if (a.id > b.id) return -1;
 			if (a.id < b.id) return 1;
@@ -51,10 +51,10 @@ export class UserComponent implements OnInit {
 		})
 
 		this.enumService.getRoles();
-		this.userService.getUsers();
+		this.userService.findAll();
 	}
 
-	getUserId() {
+	get userid() {
 		return this.global.userid;
 	}
 }

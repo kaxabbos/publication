@@ -6,6 +6,7 @@ import {AuthService} from "../auth/auth.service";
 import {PublicationService} from "./publication.service";
 import {PublicationCardComponent} from "./publication-card/publication-card.component";
 import {GlobalService} from "../global.service";
+import {NavigateDirective} from "../navigate.directive";
 
 @Component({
 	selector: 'app-publication',
@@ -14,7 +15,8 @@ import {GlobalService} from "../global.service";
 		NgIf,
 		ReactiveFormsModule,
 		FormsModule,
-		PublicationCardComponent
+		PublicationCardComponent,
+		NavigateDirective
 	],
 	templateUrl: './publication.component.html',
 })
@@ -33,7 +35,7 @@ export class PublicationComponent implements OnInit {
 	) {
 	}
 
-	getPublications() {
+	get sorted() {
 		let res = this.publications;
 
 		res = res.filter(value => value.name.includes(this.name));
@@ -63,7 +65,7 @@ export class PublicationComponent implements OnInit {
 		this.publicationService.findAll();
 	}
 
-	getRole() {
+	get role() {
 		return this.global.role;
 	}
 

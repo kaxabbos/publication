@@ -8,11 +8,11 @@
 
 	<div class="row mb-5 d-flex justify-content-center" data-aos="zoom-in">
 		<div class="col-4">
-			<a (click)="router.navigate(['/publications'])" class="btn btn-primary w-100">Назад</a>
+			<a appNavigate [navigateURL]="'publications'" class="btn btn-primary w-100">Назад</a>
 		</div>
 	</div>
 
-	<form (ngSubmit)="addPublication()" [formGroup]="publication" class="row" data-aos="fade-up">
+	<form (ngSubmit)="save()" [formGroup]="publication" class="row" data-aos="fade-up">
 		<div class="col mb-2">
 			<p class="fs-4 m-0">Наименование</p>
 			<input class="form-control" formControlName="name" type="text">

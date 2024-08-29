@@ -8,28 +8,28 @@
 
 	<div class="row mb-5 d-flex justify-content-center" data-aos="zoom-in">
 		<div class="col-3">
-			<a (click)="router.navigate(['/publications'])" class="btn btn-primary w-100">Назад</a>
+			<a appNavigate [navigateURL]="'publications'" class="btn btn-primary w-100">Назад</a>
 		</div>
-		<div *ngIf="getUserId() === getOwnerId() && getRole() === 'USER'" class="col-3">
-			<a (click)="updatePublicationPage()" class="btn btn-success w-100">Обновить</a>
+		<div *ngIf="userid === ownerid && role === 'USER'" class="col-3">
+			<a appNavigate [navigateURL]="'publicationUpdate'" [queryParams]="{id: id}" class="btn btn-success w-100">Обновить</a>
 		</div>
-		<div *ngIf="getUserId() === getOwnerId() && getRole() === 'USER'" class="col-3">
+		<div *ngIf="userid === ownerid && role === 'USER'" class="col-3">
 			<a (click)="deletePublication()" class="btn btn-danger w-100">Удалить</a>
 		</div>
-		<div *ngIf="getUserId() === getOwnerId() && publication.status === 'CORRECTION' && getRole() === 'USER'" class="col-3">
+		<div *ngIf="userid === ownerid && publication.status === 'CORRECTION' && role === 'USER'" class="col-3">
 			<a (click)="updateStatusWaiting()" class="btn btn-secondary w-100">На проверку</a>
 		</div>
-		<div *ngIf="getUserId() === getOwnerId() && publication.status === 'CLOSED' && getRole() === 'USER'" class="col-3">
+		<div *ngIf="userid === ownerid && publication.status === 'CLOSED' && role === 'USER'" class="col-3">
 			<a (click)="updateStatusWaiting()" class="btn btn-secondary w-100">На проверку</a>
 		</div>
-		<div *ngIf="(getRole() === 'MANAGER' || getUserId() === getOwnerId()) && publication.status === 'DONE'"
+		<div *ngIf="(role === 'MANAGER' || userid === ownerid) && publication.status === 'DONE'"
 			 class="col-3">
 			<a (click)="updateStatusClosed()" class="btn btn-secondary w-100">Закрыть</a>
 		</div>
-		<div *ngIf="getRole() === 'MANAGER' && publication.status === 'WAITING'" class="col-3">
+		<div *ngIf="role === 'MANAGER' && publication.status === 'WAITING'" class="col-3">
 			<a (click)="updateStatusDone()" class="btn btn-success w-100">Одобрить</a>
 		</div>
-		<div *ngIf="getRole() === 'MANAGER' && publication.status === 'WAITING'" class="col-12 mt-2">
+		<div *ngIf="role === 'MANAGER' && publication.status === 'WAITING'" class="col-12 mt-2">
 			<textarea [(ngModel)]="note" class="form-control mb-2" placeholder="Примечание"></textarea>
 			<button *ngIf="note != ''" type="button" class="btn btn-warning w-100" data-aos="zoom-in"
 					(click)="updateStatusCorrection()">На правки
@@ -42,14 +42,14 @@
 			<img [src]="publication.img" alt="img" class="rounded shadow w-100 object-fit-cover" loading="lazy">
 		</div>
 		<div class="col">
-			<p *ngIf="getRole() === 'MANAGER' || getUserId() === getOwnerId()"
+			<p *ngIf="role === 'MANAGER' || userid === ownerid"
 			   class="fs-4 m-0">{{ 'Статус: ' + publication.statusName }}</p>
 			<p class="fs-4 m-0">{{ 'Цена: ' + publication.price }}</p>
 			<p class="fs-4 m-0">{{ 'Описание: ' + publication.description }}</p>
 		</div>
 	</div>
 
-	<div *ngIf="getUserId() !== getOwnerId() && getRole() === 'USER' && getApplications().length === 0" class="mb-5"
+	<div *ngIf="userid !== ownerid && role === 'USER' && sortedApplications.length === 0" class="mb-5"
 		 data-aos="fade-up">
 		<textarea class="form-control mb-2" [(ngModel)]="description" placeholder="Заполните заявку"></textarea>
 		<button *ngIf="description != ''" type="button" class="btn btn-success w-100" data-aos="zoom-in"
@@ -57,7 +57,7 @@
 		</button>
 	</div>
 
-	@for (i of getApplications(); track i.id) {
+	@for (i of sortedApplications; track i.id) {
 		<div class="row mb-3" data-aos="fade-up">
 			<div class="col mb-2">
 				<p class="fs-4 m-0 text-center">{{ i.ownerName }}</p>
@@ -68,10 +68,10 @@
 			<div class="col-12 mb-2">
 				<p class="fs-4 m-0">{{ i.description }}</p>
 			</div>
-			<div class="col" *ngIf="getUserId() === getOwnerId() && i.status === 'WAITING'">
+			<div class="col" *ngIf="userid === ownerid && i.status === 'WAITING'">
 				<button type="button" class="btn btn-success w-100" (click)="doneApplication(i.id)">Одобрить</button>
 			</div>
-			<div class="col" *ngIf="getUserId() === getOwnerId() && i.status === 'WAITING'">
+			<div class="col" *ngIf="userid === ownerid && i.status === 'WAITING'">
 				<button type="button" class="btn btn-warning w-100" (click)="rejectApplication(i.id)">Отклонить</button>
 			</div>
 			<div class="col-12">

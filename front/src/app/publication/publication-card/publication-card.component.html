@@ -6,10 +6,10 @@
 	<div class="card-body">
 		<p class="text-center fs-4 m-0">{{ publication.name }}</p>
 		<p class="fs-4 m-0">{{ 'Цена: ' + publication.price }}</p>
-		<p *ngIf="getRole() === 'MANAGER' || getUserId() === publication.ownerId"
+		<p *ngIf="role === 'MANAGER' || userid === publication.ownerId"
 		   class="fs-4 m-0">{{ 'Статус: ' + publication.statusName }}</p>
 	</div>
 	<div class="card-footer">
-		<a (click)="publicationPage(publication.id)" class="btn btn-info w-100">Подробнее</a>
+		<a appNavigate [navigateURL]="'publication'" [queryParams]="{id: publication.id}" class="btn btn-info w-100">Подробнее</a>
 	</div>
 </div>

@@ -2,9 +2,9 @@
 
 	<h1 class="text-center mb-5" data-aos="zoom-in">Публикации</h1>
 
-	<div *ngIf="getRole() === 'USER'" class="row mb-5 d-flex justify-content-center" data-aos="zoom-in">
+	<div *ngIf="role === 'USER'" class="row mb-5 d-flex justify-content-center" data-aos="zoom-in">
 		<div class="col-4">
-			<a (click)="router.navigate(['/publicationAdd'])" class="btn btn-primary w-100">Добавить</a>
+			<a appNavigate [navigateURL]="'publicationAdd'" class="btn btn-primary w-100">Добавить</a>
 		</div>
 	</div>
 
@@ -22,18 +22,18 @@
 				<option value="5">От Я до А</option>
 			</select>
 		</div>
-		<div *ngIf="getRole() === 'MANAGER' || getRole() === 'USER'" class="col">
+		<div *ngIf="role === 'MANAGER' || role === 'USER'" class="col">
 			<select [(ngModel)]="filter2" class="form-select" name="filter2">
 				<option value="0">Все</option>
-				<option *ngIf="getRole() === 'USER'" value="1">Мои</option>
-				<option *ngIf="getRole() === 'MANAGER'" value="2">В ожидании</option>
-				<option *ngIf="getRole() === 'MANAGER'" value="3">Неподтвержденные</option>
+				<option *ngIf="role === 'USER'" value="1">Мои</option>
+				<option *ngIf="role === 'MANAGER'" value="2">В ожидании</option>
+				<option *ngIf="role === 'MANAGER'" value="3">Неподтвержденные</option>
 			</select>
 		</div>
 	</div>
 
 	<div class="row justify-content-center">
-		@for (i of getPublications(); track i.id) {
+		@for (i of sorted; track i.id) {
 			<div class="col-4">
 				<app-publication-card [publication]="i"></app-publication-card>
 			</div>

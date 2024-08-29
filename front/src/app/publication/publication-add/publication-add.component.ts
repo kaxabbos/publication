@@ -5,13 +5,15 @@ import {Router} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
+import {NavigateDirective} from "../../navigate.directive";
 
 @Component({
 	selector: 'app-publication-add',
 	standalone: true,
 	imports: [
 		ReactiveFormsModule,
-		NgIf
+		NgIf,
+		NavigateDirective
 	],
 	templateUrl: './publication-add.component.html',
 })
@@ -40,8 +42,8 @@ export class PublicationAddComponent implements OnInit {
 		})
 	}
 
-	addPublication() {
-		this.publicationService.addPublication(this.publication.value).subscribe({
+	save() {
+		this.publicationService.save(this.publication.value).subscribe({
 			next: ((res: any) => {
 				this.publicationService.updateImg(this.file, res.data.id).subscribe({
 					next: (() => {

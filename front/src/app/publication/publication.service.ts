@@ -41,7 +41,7 @@ export class PublicationService {
 		);
 	}
 
-	addPublication(publication: any) {
+	save(publication: any) {
 		return this.http.post(
 			this.global.backendURL + '/publications',
 			publication,
