@@ -32,27 +32,7 @@ export class RegComponent {
 	}
 
 	regFormSubmit() {
-		this.authService.reg(this.regForm.value).subscribe({
-			next: (() => {
-				this.authService.login(this.regForm.value).subscribe({
-					next: ((res) => {
-						this.global.set(res.data.user.id, res.data.user.role, res.data.token);
-						this.router.navigate(['/']);
-					}),
-					error: ((error) => {
-						console.log("error", error);
-						if (error.status === 0) this.message = "Сервер не работает";
-						else this.message = error.error.message;
-					})
-				});
-
-			}),
-			error: ((error) => {
-				console.log("error", error);
-				if (error.status === 0) this.message = "Сервер не работает";
-				else this.message = error.error.message;
-			})
-		});
+		this.authService.reg(this.regForm.value);
 	}
 
 }

@@ -3,6 +3,7 @@ import {RouterOutlet} from '@angular/router';
 import {FooterComponent} from "./footer/footer.component";
 import {NavComponent} from "./nav/nav.component";
 import {NgIf} from "@angular/common";
+import {AlertComponent} from "./alert/alert.component";
 
 @Component({
 	selector: 'app-root',
@@ -11,7 +12,8 @@ import {NgIf} from "@angular/common";
 		RouterOutlet,
 		FooterComponent,
 		NavComponent,
-		NgIf
+		NgIf,
+		AlertComponent
 	],
 	templateUrl: './app.component.html',
 })

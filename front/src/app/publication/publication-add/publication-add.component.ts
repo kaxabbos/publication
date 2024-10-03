@@ -6,6 +6,7 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {NgIf} from "@angular/common";
 import {GlobalService} from "../../global.service";
 import {NavigateDirective} from "../../navigate.directive";
+import {AlertService} from "../../alert/alert.service";
 
 @Component({
 	selector: 'app-publication-add',
@@ -26,13 +27,12 @@ export class PublicationAddComponent implements OnInit {
 	})
 	file: any = null;
 
-	message: any;
-
 	constructor(
 		public router: Router,
 		private publicationService: PublicationService,
 		private authService: AuthService,
 		private global: GlobalService,
+		private alert: AlertService,
 	) {
 	}
 
@@ -51,13 +51,13 @@ export class PublicationAddComponent implements OnInit {
 					}),
 					error: ((e) => {
 						console.log("error", e);
-						this.message = e.error.message;
+						this.alert.showAlertMessage(e.error.message);
 					})
 				})
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}

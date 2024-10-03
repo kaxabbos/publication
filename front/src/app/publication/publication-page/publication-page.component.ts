@@ -7,6 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {PublicationApplicationService} from "../publication-application.service";
 import {GlobalService} from "../../global.service";
 import {NavigateDirective} from "../../navigate.directive";
+import {AlertService} from "../../alert/alert.service";
 
 @Component({
 	selector: 'app-publication-page',
@@ -23,7 +24,6 @@ export class PublicationPageComponent implements OnInit {
 	publication: any = {
 		name: ''
 	};
-	message: string = '';
 	note: string = '';
 	description: string = '';
 
@@ -33,7 +33,8 @@ export class PublicationPageComponent implements OnInit {
 		private authService: AuthService,
 		private publicationService: PublicationService,
 		private applicationService: PublicationApplicationService,
-		private global: GlobalService
+		private global: GlobalService,
+		private alert: AlertService,
 	) {
 	}
 
@@ -96,7 +97,7 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
@@ -108,7 +109,7 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
@@ -120,7 +121,7 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
@@ -132,7 +133,7 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
@@ -144,7 +145,7 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
@@ -156,7 +157,7 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
@@ -168,7 +169,7 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
@@ -180,7 +181,7 @@ export class PublicationPageComponent implements OnInit {
 			}),
 			error: ((e) => {
 				console.log("error", e);
-				this.message = e.error.message;
+				this.alert.showAlertMessage(e.error.message);
 			})
 		})
 	}
