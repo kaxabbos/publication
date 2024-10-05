@@ -30,7 +30,7 @@
 							"public/css/bootstrap.min.css"
 						],
 						"scripts": [
-							"public/js/bootstrap.bundle.min.js",
+							"public/js/bootstrap.min.js",
 							"node_modules/apexcharts/dist/apexcharts.min.js"
 						]
 					},
